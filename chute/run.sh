@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Get wlan0 IP addr
+wlanAddr = $(ifconfig -a | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
+
+# Write tor config
+
+
 # Redirect HTTP traffic to the proxy.
 #iptables -A PREROUTING -t nat -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
 
