@@ -32,6 +32,9 @@ iptables -A PREROUTING -t nat -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8
 # Required for forwarding everything else (e.g. DNS).
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
+# Start tor service
+service tor start
+
 # Start the proxy.
 #service privoxy force-reload
 #service dansguardian start
