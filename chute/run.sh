@@ -32,9 +32,9 @@ iptables -t nat -A PREROUTING -i wlan0 -p tcp --syn -j REDIRECT --to-ports 9040
 #service privoxy force-reload
 #service dansguardian start
 
-#while true; do
-#    sleep 300
-#done
+while true; do
+    sleep 300
+done
 
 # If execution reaches this point, the chute will stop running.
 exit 0
