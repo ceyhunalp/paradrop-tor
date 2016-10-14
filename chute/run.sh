@@ -2,8 +2,8 @@
 
 # Get wlan0 IP addr
 
-$wlanAddr=''
-while [ $wlanAddr=''] do
+wlanAddr=''
+while [ "$wlanAddr" == "" ]; do
     sleep 1
     wlanAddr=$(ifconfig -a | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
 done
@@ -27,10 +27,10 @@ iptables -t nat -A PREROUTING -i wlan0 -p udp --dport 53 -j REDIRECT --to-ports 
 iptables -t nat -A PREROUTING -i wlan0 -p tcp --syn -j REDIRECT --to-ports 9040
 
 # Redirect HTTP traffic to the proxy.
-#iptables -A PREROUTING -t nat -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+iptables -A PREROUTING -t nat -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
 
 # Required for forwarding everything else (e.g. DNS).
-#iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
 # Start the proxy.
 #service privoxy force-reload
