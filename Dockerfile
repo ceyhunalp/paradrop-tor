@@ -9,7 +9,7 @@ FROM paradrop/workshop
 RUN apt-get update && apt-get install -y \
 #   <package> \
     tor \
-    iptables \
+    iptables
 
 # Install files required by the chute.
 #
