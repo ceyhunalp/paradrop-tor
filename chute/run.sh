@@ -2,7 +2,11 @@
 
 # Get wlan0 IP addr
 
-wlanAddr=$(ifconfig -a | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
+$wlanAddr=''
+while [ $wlanAddr=''] do
+    sleep 1
+    wlanAddr=$(ifconfig -a | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
+done
 
 # Write tor config
 echo "Log notice file /var/log/tor/notices.log" >> /etc/tor/torrc
