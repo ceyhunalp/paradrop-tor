@@ -34,7 +34,7 @@ iptables -t nat -A PREROUTING -i wlan0 -p tcp --syn -j REDIRECT --to-ports 9040
 
 # Transparently redirect any traffic destined for the Tor virtual address space through the Tor transport port we designated above
 iptables -A INPUT -p tcp --dport 9040 -j ACCEPT
-iptables -t nat -A PREROUTING -p tcp -d 10.192.0.0/11 -j REDIRECT --to-port 9040
+iptables -t nat -A PREROUTING -i wlan0 -p tcp -d 10.192.0.0/11 -j REDIRECT --to-port 9040
 iptables -t nat -A OUTPUT -p tcp -d 10.192.0.0./10 -j REDIRECT --to-ports 9040
 
 # Redirect HTTP traffic to the proxy.
