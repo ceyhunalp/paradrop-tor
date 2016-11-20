@@ -5,7 +5,8 @@
 wlanAddr=''
 while [ "$wlanAddr" == "" ]; do
     sleep 1
-    wlanAddr=$(ifconfig -a | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
+    wlanAddr=$(ifconfig -a | grep -A 2 "wlan0\." | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
+    #wlanAddr=$(ifconfig -a | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
 done
 
 # Write tor config
@@ -21,7 +22,8 @@ echo "DNSPort 53" >> /etc/tor/torrc
 
 # Modify /etc/resolv.conf so that DNS queries go through Tor
 
-echo "nameserver 127.0.0.1" > /etc/resolv.conf
+rm /etc/resolv.conf
+echo "nameserver 127.0.0.1" >> /etc/resolv.conf
 
 # iptables configuration
 iptables -F
