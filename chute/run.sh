@@ -5,8 +5,8 @@
 wlanAddr=''
 while [ "$wlanAddr" == "" ]; do
     sleep 1
-    wlanAddr=$(ifconfig -a | grep -A 2 "wlan0\." | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
-    #wlanAddr=$(ifconfig -a | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
+    #wlanAddr=$(ifconfig -a | grep -A 2 "wlan0\." | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
+    wlanAddr=$(ifconfig -a | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
 done
 
 # Write tor config
