@@ -16,12 +16,12 @@ echo "AutomapHostsOnResolve 1" >> /etc/tor/torrc
 echo "TransPort 9040" >> /etc/tor/torrc
 echo "TransListenAddress $wlanAddr" >> /etc/tor/torrc
 echo "DNSPort 5353" >> /etc/tor/torrc
-#echo "DNSListenAddress $wlanAddr" >> /etc/tor/torrc
+echo "DNSListenAddress $wlanAddr" >> /etc/tor/torrc
 
 # Modify /etc/resolv.conf so that DNS queries go through Tor
 
-cp /dev/null /etc/resolv.conf
-echo "nameserver 127.0.0.1" >> /etc/resolv.conf
+#cp /dev/null /etc/resolv.conf
+#echo "nameserver 127.0.0.1" >> /etc/resolv.conf
 
 # iptables configuration
 iptables -F
