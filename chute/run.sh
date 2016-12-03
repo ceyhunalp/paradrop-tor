@@ -20,8 +20,8 @@ echo "DNSListenAddress $wlanAddr" >> /etc/tor/torrc
 
 # Modify /etc/resolv.conf so that DNS queries go through Tor
 
-#cp /dev/null /etc/resolv.conf
-#echo "nameserver 127.0.0.1" >> /etc/resolv.conf
+cp /dev/null /etc/resolv.conf
+echo "nameserver 127.0.0.1" >> /etc/resolv.conf
 
 # iptables configuration
 iptables -F
@@ -33,7 +33,7 @@ iptables -t nat -A PREROUTING -i wlan0 -p tcp --syn -j REDIRECT --to-ports 9040
 # Transparently redirect any traffic destined for the Tor virtual address space through the Tor transport port we designated above
 #iptables -A INPUT -p tcp --dport 9040 -j ACCEPT
 #iptables -t nat -A PREROUTING -i wlan0 -p tcp -d 10.192.0.0/10 -j REDIRECT --to-port 9040
-#iptables -t nat -A OUTPUT -p tcp -d 10.192.0.0/10 -j REDIRECT --to-ports 9040
+iptables -t nat -A OUTPUT -p tcp -d 10.192.0.0/10 -j REDIRECT --to-ports 9040
 #iptables -t nat -A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 5353
 
 # Redirect HTTP traffic to the proxy.
