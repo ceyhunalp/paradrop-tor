@@ -5,12 +5,11 @@
 wlanAddr=''
 while [ "$wlanAddr" == "" ]; do
     sleep 1
-    #wlanAddr=$(ifconfig -a | grep -A 2 "wlan0\." | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
     wlanAddr=$(ifconfig -a | grep 'inet addr:192.168' | awk '{print $2}' | awk -F':' '{print $2}')
 done
 
 # Write tor config
-echo "Log notice file /var/log/tor/notices.log" >> /etc/tor/torrc
+echo "Log notice file /var/log/tor/notices.log" > /etc/tor/torrc
 echo "VirtualAddrNetwork 10.192.0.0/10" >> /etc/tor/torrc
 echo "AutomapHostsSuffixes .onion,.exit" >> /etc/tor/torrc
 echo "AutomapHostsOnResolve 1" >> /etc/tor/torrc
@@ -32,10 +31,10 @@ iptables -t nat -A PREROUTING -i wlan0 -p udp --dport 53 -j REDIRECT --to-ports 
 iptables -t nat -A PREROUTING -i wlan0 -p tcp --syn -j REDIRECT --to-ports 9040
 
 # Transparently redirect any traffic destined for the Tor virtual address space through the Tor transport port we designated above
-iptables -A INPUT -p tcp --dport 9040 -j ACCEPT
-iptables -t nat -A PREROUTING -i wlan0 -p tcp -d 10.192.0.0/10 -j REDIRECT --to-port 9040
-iptables -t nat -A OUTPUT -p tcp -d 10.192.0.0/10 -j REDIRECT --to-ports 9040
-iptables -t nat -A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 5353
+#iptables -A INPUT -p tcp --dport 9040 -j ACCEPT
+#iptables -t nat -A PREROUTING -i wlan0 -p tcp -d 10.192.0.0/10 -j REDIRECT --to-port 9040
+#iptables -t nat -A OUTPUT -p tcp -d 10.192.0.0/10 -j REDIRECT --to-ports 9040
+#iptables -t nat -A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 5353
 
 # Redirect HTTP traffic to the proxy.
 iptables -A PREROUTING -t nat -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
