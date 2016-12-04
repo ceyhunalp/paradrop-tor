@@ -16,7 +16,7 @@ echo "AutomapHostsOnResolve 1" >> /etc/tor/torrc
 echo "TransPort 9040" >> /etc/tor/torrc
 echo "TransListenAddress $wlanAddr" >> /etc/tor/torrc
 echo "DNSPort 53" >> /etc/tor/torrc
-#echo "DNSListenAddress $wlanAddr" >> /etc/tor/torrc
+echo "DNSListenAddress $wlanAddr" >> /etc/tor/torrc
 
 # Modify /etc/resolv.conf so that DNS queries go through Tor
 
