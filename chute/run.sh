@@ -18,6 +18,10 @@ echo "TransListenAddress $wlanAddr" >> /etc/tor/torrc
 echo "DNSPort 53" >> /etc/tor/torrc
 echo "DNSListenAddress $wlanAddr" >> /etc/tor/torrc
 
+# Set up DNS/DHCP
+echo "interface=wlan0" > /etc/dnsmasq.conf
+echo "dhcp-range=192.168.128.50,192.168.128.150,12h" >> /etc/dnsmasq.conf
+
 # iptables configuration
 iptables -F
 iptables -t nat -F
@@ -37,6 +41,9 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
 # Start tor service
 service tor start
+
+# Start DNS server
+/etc/init.d/dnsmasq start
 
 while true; do
     sleep 300

@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
 #   <package> \
     tor \
     tcpdump \
-    iptables
+    iptables \
+    dnsmasq
 
 # Install files required by the chute.
 #
